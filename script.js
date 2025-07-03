@@ -2,18 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchBox = document.getElementById("searchBox");
   const answerBox = document.getElementById("answerBox");
 
-  // 📌 Tại đây bạn dán danh sách câu hỏi/đáp án theo định dạng: "câu hỏi": "đáp án"
   const qaMap = {
-    "việt nam có bao nhiêu tỉnh?": "Việt Nam có 63 tỉnh và thành phố.",
     "ai là mẹ của đường tam": "A Ngân",
-    "gdp là gì": "Tổng sản phẩm quốc nội",
-    // 👉 Dán thêm ở đây...
+    "việt nam có bao nhiêu tỉnh": "Việt Nam có 63 tỉnh và thành phố.",
+    "ai là người đứng đầu vũ hồn điện": "Bỉ Bỉ Đông",
+    "gdp là gì": "Tổng sản phẩm quốc nội.",
+    "bạch tiểu thuần là ai": "Nhân vật chính trong Nhất Niệm Vĩnh Hằng"
+    // 👉 Dán thêm câu hỏi-đáp án theo mẫu "câu hỏi": "đáp án"
   };
 
   searchBox.addEventListener("input", function () {
     const query = searchBox.value.trim().toLowerCase();
-
-    // Tìm gần đúng
     const matched = Object.keys(qaMap).find(q => q.includes(query));
 
     if (matched) {
