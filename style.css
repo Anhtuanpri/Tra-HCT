@@ -1,57 +1,35 @@
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
-  overflow-x: hidden;
+  background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+  color: #00ffff;
+  text-align: center;
+  padding: 50px 10px;
 }
-
 .marquee-container {
-  width: 100%;
-  background: #ff0080;
-  color: white;
-  padding: 10px 0;
-  font-weight: bold;
+  background: #111;
   overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 2px solid #0ff;
 }
-
 .marquee {
   display: inline-block;
-  white-space: nowrap;
-  animation: marquee 15s linear infinite;
+  animation: marquee 12s linear infinite;
+  padding: 10px;
+  color: #0ff;
 }
-
 @keyframes marquee {
   from { transform: translateX(100%); }
   to { transform: translateX(-100%); }
 }
-
 .card {
-  margin-top: 30px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 50, 0.4);
   padding: 30px;
-  border-radius: 16px;
-  border: 4px solid;
-  border-image-slice: 1;
-  border-width: 4px;
-  border-image-source: linear-gradient(45deg, #00f0ff, #ff00ff, #00ff88);
-  text-align: center;
-  width: 90%;
-  max-width: 700px;
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+  border-radius: 15px;
+  box-shadow: 0 0 25px #0ff;
+  max-width: 600px;
+  margin: 50px auto;
 }
-
-.card h1 {
-  margin-bottom: 20px;
-  font-size: 26px;
-}
-
 input[type="text"] {
   width: 100%;
   padding: 14px;
@@ -59,38 +37,17 @@ input[type="text"] {
   border-radius: 10px;
   font-size: 16px;
   outline: none;
-  margin-bottom: 20px;
-  background: #fff;
-  color: #000;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  margin-top: 20px;
 }
-
 #answerBox {
+  margin-top: 20px;
   font-size: 18px;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 2px dashed #0ff;
+  border: 2px solid #0ff;
   border-radius: 10px;
-  animation: glow 1s infinite alternate;
+  background-color: #000;
+  color: #0ff;
 }
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 10px #0ff;
-  }
-  to {
-    box-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
-  }
-}
-
 .hidden {
   display: none;
-}
-
-.suggest {
-  margin-top: 30px;
-  background: rgba(255,255,255,0.1);
-  padding: 15px;
-  border-radius: 10px;
-  color: #eee;
 }
