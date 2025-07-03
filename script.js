@@ -8,12 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
     "ai là người đứng đầu vũ hồn điện": "Bỉ Bỉ Đông",
     "gdp là gì": "Tổng sản phẩm quốc nội.",
     "bạch tiểu thuần là ai": "Nhân vật chính trong Nhất Niệm Vĩnh Hằng"
-    // 👉 Dán thêm câu hỏi-đáp án theo mẫu "câu hỏi": "đáp án"
+    // 👉 Dán thêm câu hỏi khác ở đây
   };
 
   searchBox.addEventListener("input", function () {
     const query = searchBox.value.trim().toLowerCase();
-    const matched = Object.keys(qaMap).find(q => q.includes(query));
+
+    // 🔍 Tìm gần đúng (không cần gõ đúng toàn bộ)
+    const matched = Object.keys(qaMap).find(q =>
+      q.includes(query) || query.includes(q)
+    );
 
     if (matched) {
       answerBox.innerHTML = `<strong>✅ Trả lời:</strong> ${qaMap[matched]}`;
