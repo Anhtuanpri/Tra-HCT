@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const qaMap = {
     "ai là mẹ của đường tam": "A Ngân",
-    "test": "Tổng sản phẩm quốc nội.",
+    "test": "test.",
     "bạch tiểu thuần là ai": "Nhân vật chính trong Nhất Niệm Vĩnh Hằng",
     "việt nam có bao nhiêu tỉnh": "Việt Nam có 63 tỉnh và thành phố.",
     "tiêu viêm sử dụng vũ khí gì": "Huyền Trọng Xích"
