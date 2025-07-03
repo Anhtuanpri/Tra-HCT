@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "ai là mẹ của đường tam": "A Ngân",
     "test": "test.",
     "bạch tiểu thuần là ai": "Nhân vật chính trong Nhất Niệm Vĩnh Hằng",
-    "việt nam có bao nhiêu tỉnh": "Việt Nam có 63 tỉnh và thành phố.",
+    "v": "v.",
     "tiêu viêm sử dụng vũ khí gì": "Huyền Trọng Xích"
     // 👉 Dán thêm tại đây...
   };
