@@ -3,17 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const answerBox = document.getElementById("answerBox");
 
   const qaMap = {
-    "việt nam có bao nhiêu tỉnh": "Việt Nam có 63 tỉnh và thành phố.",
-    "thủ đô của thái lan": "Bangkok",
-    "asean là gì": "Hiệp hội các quốc gia Đông Nam Á.",
+    "ai là mẹ của đường tam": "A Ngân",
     "gdp là gì": "Tổng sản phẩm quốc nội.",
-    "tổ chức who làm gì": "Giám sát và cải thiện sức khỏe cộng đồng toàn cầu.",
-    "chiến tranh thế giới thứ 2 bắt đầu năm nào": "Năm 1939"
-    // 👉 Dán thêm tại đây
+    "bạch tiểu thuần là ai": "Nhân vật chính trong Nhất Niệm Vĩnh Hằng",
+    "việt nam có bao nhiêu tỉnh": "Việt Nam có 63 tỉnh và thành phố.",
+    "tiêu viêm sử dụng vũ khí gì": "Huyền Trọng Xích"
+    // 👉 Dán thêm tại đây...
   };
 
   searchBox.addEventListener("input", function () {
     const query = searchBox.value.trim().toLowerCase();
+
     const matched = Object.keys(qaMap).find(q =>
       q.includes(query) || query.includes(q)
     );
