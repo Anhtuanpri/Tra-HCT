@@ -1,225 +1,30 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const searchBox = document.getElementById("searchBox");
-  const answerBox = document.getElementById("answerBox");
+const qaList = [
+  { question: "ai là mẹ của đường tam", answer: "A Ngân" },
+  { question: "bạch tiểu thuần là ai", answer: "Nhân vật chính trong Nhất Niệm Vĩnh Hằng" },
+  { question: "vũ hồn của tiểu vũ là gì", answer: "Nhu Cốt Thỏ" },
+  { question: "pháp bảo của tiêu viêm", answer: "Huyền Trọng Xích" }
+  // ← Bạn dán thêm ở đây
+];
 
-  const qaMap = {
-    {
-  "ai là huynh đệ và cũng là người thầy mà vương lâm trong tiên nghịch kính trọng nhất": "Tư Đồ Nam",
-  "ai là mẹ của đường tam": "A Ngân",
-  "ai là người đứng đầu vũ hồn điện": "Bỉ Bỉ Đông",
-  "ai là nhân vật chính trong bộ phim hoạt hình trung quốc thần mộ": "Thần Nam",
-  "bách lý đông quân là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Thiếu Niên Bạch Mã Tuý Xuân Phong",
-  "bạch nguyệt khôi là tên nhân vật chính trong bộ phim hoạt hình trung quốc nào sau đây": "Linh Lung",
-  "bạch tiểu thuần là nhân vật chính trong bộ hoạt hình trung quốc nào": "Nhất Niệm Vĩnh Hằng",
-  "bạch tiểu thuần trong nhất niệm vĩnh hằng luôn được ai âm thầm giúp đỡ": "Đỗ Lăng Phỉ",
-  "bộ phim nào sau đây thuộc tiểu thuyết của tác giả thiên tằm thổ đậu": "Tất cả đáp án trên (ĐCT, VĐCK, ĐPTK)",
-  "các cấp bậc nào sau đây thuộc phim đấu phá thương khung": "Đấu Tông",
-  "cháu dượng của bạch tiểu thuần trong nhất niệm vĩnh hằng là ai": "Tống Khuyết",
-  "chủ nhân đời trước của vẫn lạc tâm viêm trong đấu phá thương khung là ai": "Diệu Thiên Hỏa",
-  "công pháp gì giúp tiêu viêm trong đấu phá thương khung hấp thụ nhiều loại dị hỏa": "Phần Quyết",
-  "công pháp nào sau đây là của hàn lập trong phàm nhân tu tiên": "Tất cả đáp án trên (MVQ, TXC, TNKQ)",
-  "cơ tử nguyệt là nhân vật trong các bộ hoạt hình trung quốc nào sau đây": "Già Thiên",
-  "dạ táng còn là biệt danh của ai trong nhất niệm vĩnh hằng": "Bạch Tiểu Thuần",
-  "danh xưng tàn thi bại thuế là của nhân vật nào trong hoạ giang hồ chi bất lương nhân": "Hàng Thần",
-  "diễm linh cơ là nhân vật trong phim hoạt hình trung quốc nào": "Thiên Hành Cửu Ca",
-  "diệp phàm là nhân vật chính trong bộ hoạt hình trung quốc nào": "Già Thiên",
-  "diệp thần trong tiên võ đế tôn gia nhập tông môn nào đầu tiên": "Chính Dương Tông",
-  "dược trần trong đấu phá thương khung đã từng bị đồ đệ nào phản bội": "Hàn Phong",
-  "đại ca của tiêu viêm trong đấu phá thương khung tên gì": "Tiêu Đỉnh",
-  "đàm vân là nhân vật chính trong bộ phim hoạt hình trung quốc nào sau đây": "Nghịch Thiên Chí Tôn",
-  "đạo lữ của hàn lập là ai": "Nam Cung Uyển",
-  "đâu là nhân vật chính trong phim bách luyện thành thần": "La Chinh",
-  "đâu là thái cổ thập hung trong phim thế giới hoàn mỹ": "Tất cả đáp án trên (ĐTT, CU, CL)",
-  "đâu là tuyệt kỹ số 1 hạo thiên tông mà đường hạo dạy cho con trai trong đấu la đại lục": "Đại Tu Di Chùy",
-  "đấu sát toàn viên kiếm là một kỹ năng trong bộ phim hoạt hình trung quốc nào": "Thần Ấn Vương Toạ",
-  "độc cô bác trong đấu la đại lục có vũ hồn gì": "Bích Lân Xà",
-  "em trai ruột của thạch hạo trong thế giới hoàn mỹ là ai": "Tần Hạo"
-  "hàn lập sở hữu những vật phẩm nào dưới đây": "Thanh Trúc Phong Vân Kiếm",
-  "hàn lập trong phàm nhân tu tiên đến thất huyền môn bái ai làm thầy": "Mặc Đại Phu",
-  "hàn lập trong phàm nhân tu tiên gia nhập môn phái nào đầu tiên": "Thất Huyền Môn",
-  "hàn lập trong phàm nhân tu tiên từng cứu ai mà bị hấp thụ tu vi giảm xuống luyện khí kỳ": "Nam Cung Uyển",
-  "hoang thiên đế là nhân vật chính trong bộ phim hoạt hình trung quốc nổi tiếng nào": "Thế Giới Hoàn Mỹ",
-  "hoắc vũ hạo là hậu nhân của ai trong sử lai khắc": "Đái Mộc Bạch",
-  "hồn hoàn màu nào mạnh nhất": "Đỏ",
-  "huân nhi là công chúa của bộ tộc nào": "Cổ Tộc",
-  "khi ở già nam học viện, tiêu viêm thu phục được loại dị hỏa nào": "Vẫn Lạc Tâm Viêm",
-  "kính huyền trong quyến tư lượng là hậu duệ của tộc nào": "Thần Tộc",
-  "lạc ly trong đại chúa tể là nhân vật trong tộc nào": "Lạc Thần Tộc",
-  "lâm động trong vũ động càn khôn học được linh võ học nào khi vào bia cổ đại hoang": "Đại Hoang Tù Thiên Chỉ",
-  "lâm động trong vũ động càn khôn luyện hóa tổ phù nào đầu tiên": "Thôn Phệ Tổ Phù",
-  "lâm động trong vũ động càn khôn sử dụng vũ khí loại nào sau đây": "Thương",
-  "lâm phong là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Vạn Giới Độc Tôn",
-  "lâm thất dạ là nhân vật trong bộ phim hoạt hình trung quốc nào sau đây": "Trảm Thần",
-  "lâm thất dạ trong trảm thần sở hữu sức mạnh của vị thần nào": "Thiên Sứ",
-  "long tuyền kiếm xuất hiện trong bộ phim hoạt hình nào dưới đây": "Họa Giang Hồ Chi Bất Lương Nhân",
-  "lục tuyết kỳ trong tru tiên thuộc phong nào trong thanh vân môn": "Tiểu Trúc Phong",
-  "lý tinh vân trong họa giang hồ chi bất lương nhân sử dụng vũ khí nào sau đây": "Long Tuyền Kiếm",
-  "lý trường thọ trong sư huynh a sư huynh xuyên không về hồng hoang bái sư ở đâu": "Độ Tiên Môn",
-  "man hồ tử trong phim phàm nhân tu tiên tu luyện công pháp nào": "Thác Thiên Ma Công",
-  "mẫu thân của la phong trong thôn phệ tinh không tên là gì": "Cung Tâm Lan",
-  "mẹ của mạnh xuyên trong thương nguyên đồ tên là gì": "Bạch Niệm Vân",
-  "mẹ của tần trần là ai": "Tần Nguyệt Trì",
-  "mẹ của thạch hạo trong thế giới hoàn mỹ tên là gì": "Tần Di Ninh",
-  "mối tình đầu của diệp thần trong tiên võ đế tôn là ai": "Cơ Ngưng Sương",
-  "mục đích tu luyện của vương lâm trong tiên nghịch theo diễn biến phim hiện tại là gì": "Báo Thù",
-  "mục trần trong đại chúa tể liên kết huyết mạch với": "Cửu U Tước",
-  "mục vân là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Vô Thượng Thần Đế"
-  "nam chính trong bộ hoạt hình trung quốc ám hà truyện là ai": "Tô Mộ Vũ",
-  "nam chính trong bộ quyến tư lượng là ai": "Kính Huyền",
-  "nghịch hà tông là tông môn trong bộ hoạt hình trung quốc nào sau đây": "Nhất Niệm Vĩnh Hằng",
-  "nghịch thiên nhi hành là một nhân vật trong bộ phim hh3d nào sau đây": "Vũ Canh Kỷ",
-  "ngụy anh (ngụy vô tiện) là nhân vật trong bộ hhtq nào sau đây": "Ma Đạo Tổ Sư",
-  "người bạn thuở nhỏ của trương tiểu phàm trong tru tiên là ai": "Lâm Kinh Vũ",
-  "nhân vật bách lý đồ minh xuất hiện trong phim hoạt hình nào dưới đây": "Trảm Thần Chi Phàm Trần Thần Vực",
-  "nhân vật chính của thần ấn vương tọa là ai": "Long Hạo Thần",
-  "nhân vật chính của đấu la đại lục là ai": "Đường Tam",
-  "nhân vật chính lý trường thọ trong sư huynh a sư huynh đã tỏ tình với ai": "Vân Tiêu",
-  "nhân vật chính trong thương nguyên đồ là ai": "Mạnh Xuyên",
-  "nhân vật chính trong yêu thần ký tên là gì": "Nhiếp Ly",
-  "nhân vật nào luôn bất bại trong phim hoạt hình trung quốc, được ví như one-punch man": "Từ Dương",
-  "nhân vật nào sau đây được mệnh danh là vua lỳ đòn trong đấu phá thương khung": "Phượng Thanh Nhi",
-  "nhị ca của tiêu viêm trong đấu phá thương khung tên gì": "Tiêu Lệ",
-  "nhiếp phong là nhân vật chính trong phim hoạt hình trung quốc nào": "Chân Võ Đỉnh Phong",
-  "ninh diêu là một nhân vật trong bộ phim hoạt hình trung quốc nào sau đây": "Kiếm Lai",
-  "nữ chính cũng là vợ đông bá tuyết ưng trong tuyết ưng lĩnh chủ là ai sau đây": "Dư Tĩnh Thu",
-  "nữ chính trong bộ quyến tư lượng là ai": "Đồ Lệ",
-  "ông nội của lâm động trong vũ động càn khôn là ai": "Lâm Chấn Thiên",
-  "phụ thân của lâm động trong vũ động càn khôn là ai": "Lâm Khiếu",
-  "phương hàn là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Vĩnh Sinh",
-  "phương hàn trong vĩnh sinh nhận được giao phục hoàng tuyền đồ từ ai": "Bạch Hải Thiện",
-  "phương hàn trong vĩnh sinh xuất thân là gì ở nhà họ phương": "Nô Bộc",
-  "phượng thanh nhi trong đấu phá thương khung thuộc chủng tộc nào": "Thiên Yêu Hoàng Tộc",
-  "số hiệu vị thần của main trong trảm thần: phàm trần thần vực là số mấy": "003",
-  "sử lai khắc thất quái đã từng đến nơi nào để luyện tập": "Hải Thần Đảo",
-  "sư mẫu của bạch tiểu thuần trong nhất niệm vĩnh hằng là ai": "Hứa Mị Nương",
-  "sư phụ của bạch tiểu thuần trong nhất niệm vĩnh hằng là ai": "Lý Thanh Hậu",
-  "sư phụ của lý trường thọ là ai": "Tề Nguyên",
-  "sư phụ mà diệp thần yêu trong tiên võ đế tôn là ai": "Sở Huyên Nhi"
-  "sư phụ thứ 2 của lý trường thọ trong phim": "Thái Thanh Thánh Nhân",
-  "tại sao đường tam bị đường môn truy sát ở tập đầu phim đấu la đại lục": "Học trộm tuyệt học bổn môn",
-  "tần vũ trong tinh thần biến được tặng pháp bảo siêu cấp vip pro nào để tu luyện nhanh chóng": "Khương Lan Tháp",
-  "tần vũ trong tinh thần biến khiếm khuyết đan điền nhờ đâu mới có thể tu luyện": "Lưu Tinh Lệ",
-  "thánh nữ nào trong già thiên bị nhân vật chính diệp phàm lấy mất cái áo lót": "Diêu Hi",
-  "thần thông bí cảnh xuất hiện trong bộ phim hoạt hình nào dưới đây": "Vĩnh Sinh",
-  "thần vị mà đường tam đạt được là gì": "Hải Thần và Tu La Thần",
-  "thế lực nào là đối thủ lớn nhất của tiêu viêm trong đấu phá thương khung": "Hồn Điện",
-  "thú cưng thôn thôn trong nguyên tôn sinh ra có sức mạnh ngang cảnh giới nào": "Thái Sơ Cảnh",
-  "tiêu khinh tuyết xuất hiện trong bộ hoạt hình nào dưới đây": "Tuyệt Thế Chiến Hồn",
-  "tiêu viêm đã lập nên thế lực nào khi ở học viện già nam": "Bàn Môn",
-  "tiêu viêm trong đấu phá thương khung đã hẹn ước 3 năm với ai": "Nạp Lan Yên Nhiên",
-  "tiêu viêm trong đấu phá thương khung sử dụng loại vũ khí nào sau đây": "Thước",
-  "tiêu viêm trong đấu phá thương khung thuộc gia tộc nào": "Tiêu Gia",
-  "tình đầu của diệp phàm trong già thiên là ai": "Lý Tiểu Mạn",
-  "trần bình an là nam chính trong bộ phim hoạt hình trung quốc nào": "Kiếm Lai",
-  "triệu ngọc chân là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Thiếu Niên Bạch Mã Túy Xuân Phong",
-  "trong bộ đấu phá thương khung, tiêu viêm tìm đến ai để cứu dược lão": "Phong Tôn Giả",
-  "trong bộ tiên nghịch, nhân vật chính vương lâm khi ở quê nhà còn có tên khác là gì": "Thiết Trụ",
-  "trong đấu la đại lục, đường hạo là gì của đường tam": "Cha",
-  "trong già thiên, thể chất diệp phàm là thể chất gì": "Hoang Cổ Thánh Thể",
-  "trong phàm nhân tu tiên ai bị luyện thành khôi lỗi khúc hồn": "Trương Thiết",
-  "trong phim tiên nghịch, vương lâm vô tình có được pháp bảo nghịch thiên nào": "Thiên Nghịch Châu",
-  "trong tiên nghịch, vương lâm nhận được truyền thừa gì ở cổ thần chi địa": "Ký Ức",
-  "trong tru tiên, điền bất dịch là thủ tọa của phong nào": "Đại Trúc Phong",
-  "trong vĩnh sinh - phương hàn hẹn ước 10 năm cùng với ai": "Hoa Thiên Đô",
-  "trước khi đến linh khê tông, bạch tiểu thuần trong nhất niệm vĩnh hằng ở đâu": "Mạo Nhi Sơn Thôn",
-  "trương tiểu phàm trong phim tru tiên còn có tên gọi là": "Quỷ Lệ",
-  "trương tiểu phàm trong tru tiên từng được nhận vào môn phái nào": "Thanh Vân Môn",
-  "tử nghiên trong đấu phá thương khung thuộc chủng tộc nào": "Thái Hư Cổ Long"
-  "vân triệt là tên nhân vật chính trong bộ phim hoạt hình trung quốc nào sau đây": "Nghịch Thiên Tà Thần",
-  "vũ canh là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Vũ Canh Kỷ",
-  "vũ hồn của chu trúc thanh là gì": "U Minh Linh Miêu",
-  "vũ hồn của đới mộc bạch là gì": "Bạch Hổ",
-  "vũ hồn của mã hồng tuấn là gì": "Hỏa Phượng Hoàng",
-  "vũ hồn của tiểu vũ là gì": "Nhu Cốt Thỏ",
-  "vũ hồn thứ hai của đường tam là gì": "Hạo Thiên Chùy",
-  "vũ khí của đàm vân trong nghịch thiên chí tôn là gì": "Hồng Mông Thần Kiếm",
-  "vũ khí mà tiêu viêm trong đấu phá thương khung luôn mang bên mình có tên gọi là gì": "Huyền Trọng Xích",
-  "vương lâm trong phim tiên nghịch dựa vào gì để vô địch cùng cảnh giới": "Cực Cảnh",
-  "y lai khắc tư là một nhân vật trong bộ phim hoạt hình trung quốc nào sau đây": "Cả 1 và 2 (ĐLĐL2, TÂVT)",
-  "ai là người thầy của đường tam": "Đại Sư",
-  "thiên hoả tôn giả trong đấu phá thương khung dùng thi thể của ai để hồi sinh": "Vân Sơn",
-  "lâm thất dạ là nhân vật trong bộ hoạt hình trung quốc nào sau đây": "Trảm Thần",
-  "ám tinh giới được xuất hiện trong bộ phim hoạt hình nào dưới đây": "Tinh Thần Biến",
-  "tỉnh cửu là nhân vật chính trong bộ phim hoạt hình trung quốc nào sau đây": "Đại Đạo Triều Thiên",
-  "lý tinh vân là một nhân vật trong bộ phim hoạt hình trung quốc nào sau đây": "Họa Giang Hồ Chi Bất Lương Nhân",
-  "tần mục là nhân vật chính trong bộ phim hoạt hình trung quốc nào sau đây": "Mục Thần Ký",
-  "tiêu thần là nhân vật chính trong bộ phim hoạt hình trung quốc nào sau đây": "Trường Sinh Giới",
-  "tần nam là nhân vật chính trong bộ hoạt hình trung quốc nào sau đây": "Tuyệt Thế Chiến Hồn",
-  "test": "Test",
-  "mục đích chính tu luyện của tần vũ trong tinh thần biến là gì": "Vì muốn được cưới Khương Lập",
-  "khô lâu đà chủ xuất hiện trong bộ phim hoạt hình nào dưới đây": "Võ Thần Chúa Tể",
-  "nhân vật chính trong man hoang tiên giới là ai": "Lục Hàng Chi",
-  "mục đích tu luyện của tần vũ trong tinh thần biến là gì": "Vì muốn được cưới Khương Lập",
-  "nhân vật chính trong quân tử vô tật là ai": "Dao Cơ",
-  "nhân vật chính trong đấu chiến thiên hạ là ai": "Đại Phong",
-  "nhân vật chính trong ta có thể giác ngộ vô hạn là ai": "Tiêu Vân",
-  "xxxxxx": "",
-  "tại sao hàn lập khi gặp phong hi không chạy mà ở lại giúp đỡ chế tạo phong lôi sí": "Vì đánh không lại",
-  "vô tâm trong phim thiếu niên ca hành còn có tên gọi khác là gì": "Diệp An Thế"
-  "trong phim na tra: ma đồng náo hải, cha của ngao bính tên là": "Ngao Quảng",
-  "cô kiếm tiên trong phim thiếu niên ca hành là ai": "Lạc Thanh Dương",
-  "nam chính trong phim ta là đại thần tiên là": "Thời Giang",
-  "trong phim đại đạo triều thiên, tỉnh cửu đã cùng thư đồng đến đâu tu luyện": "Thanh Sơn Tông",
-  "nam chính trong phim sơn hà kiếm tâm là ai": "Yến Vô Sư",
-  "thê tử của điền bất dịch trong tru tiên là ai": "Tô Như",
-  "nam chính của phim đô thị có y tiên là": "Diệp Bất Phàm",
-  "thế giới trong mục thần ký chia thành mấy đại vực chính": "9",
-  "cổ hà trong đấu phá thương khung lúc xuất hiện ở vân lam tông là luyện dược sư mấy phẩm": "Lục Phẩm",
-  "vương lâm trong tiên nghịch ở đâu có tiên ngọc đột phá anh biến": "Đi cướp (Chỉ là bằng hữu cho mượn tiên ngọc thôi :P)",
-  "nhân vật chính trong phim trấn hồn nhai là": "Hạ Linh",
-  "chu tước thánh sứ trong tru tiên là ai": "U Cơ",
-  "bạch nguyệt khôi còn có tên gọi khác là gì": "Bà Chủ Bạch (A.K.A Bạch Lão Bản)",
-  "lâm thất dạ trong phim trảm thần gặp phải biến cố gì": "Bị mù (nhìn lên trời thấy vì tinh tú rồi bị chột)",
-  "id game diệp tu sử dụng trong phim toàn chức cao thủ": "Cả 1 và 2 (Thách đấu phá đảo rank đồng đoàn)",
-  "trong kiếm lai, khi man châu động thiên đứng trước nguy cơ bị hủy diệt, là ai đã đứng ra bảo vệ người dân trong trấn": "Tề Tĩnh Xuân (Xuân phong đắc ý)",
-  "nhân vật chính trong ta có thể giác ngộ vô hạn là ai": "Tiêu Vân (Truyện tranh hay hơn)",
-  "nhân vật chính trong phim tần thời minh nguyệt": "Kinh Thiên Minh (phim cổ)",
-  "tư mã ý trong phim hoả phụng liêu nguyên có tên tự là gì": "Trọng Đạt",
-  "dương khai trong võ luyện đỉnh phong song tu với ai đầu tiên": "Tô Nhan (em này được yêu nhất, lên map lại đi tìm :D)",
-  "ai là chủ nhân của thôn thôn trong nguyên tôn": "Yêu Yêu",
-  "trong phim đại đạo triều thiên, triệu lạp nguyệt đến từ phong nào": "Thần Mạt Phong (Nữ như nam)",
-  "nhân vật chính duy ngã độc thần": "Ninh Thần (tên phim củ chuối)",
-  "mục thần ký được chuyển thể từ tiểu thuyết của tác giả nào": "Trạch trư/thạch thư",
-  "tần mục trong mục thần ký lớn lên ở đâu": "Tàn Lão Thôn (Toàn người què)",
-  "nhân vật chính trong phim toàn chức cao thủ là ai": "Diệp Tu (Nhất Diệp Chi Thu)",
-  "ai là sư phụ của diệp phàm trong già thiên": "Lý Nhược Ngu (Tên 3 chấm...)",
-  "sở phong trong tu la võ thần có huyết mạch gì": "Thiên Lôi (chưa thấy phần mới)",
-  "trong na tra: ma đồng giáng thế, na tra được sinh ra từ gì": "Ma Hoàn (Hot hit phòng vé, nhưng mà xem lậu)",
-  "bộ phim thiên bảo phục yêu lục lấy bối cảnh thời kỳ nào": "Đường",
-  "trong phim đại đạo triều thiên, tỉnh cửu đã thu nhận ai làm thư đồng": "Lưu Thập Tuế (họ liễu chứ nhể)"
-  "nhân vật chính trong phim vạn giới tiên tung là ai": "Diệp Tinh Vân",
-  "1 trong 2 admin của website hoathinh3d là ai (biệt danh chính xác ở web)": "Từ Dương",
-  "lý hàn y trong phim thiếu niên ca hành sử dụng vũ khí gì": "Cả 1 và 2",
-  "trong các bộ phim sau, bộ nào nhân vật chính có hệ thống": "Ta Có Thể Giác Ngộ Vô Hạn",
-  "tam thánh niết là biệt danh của ai trong họa giang hồ chi bất lương nhân": "Lý Tinh Vân",
-  "sư tỷ của nguyên dao trong phàm nhân tu tiên tên là gì": "Nghiên Lệ",
-  "phong hi trong phàm nhân tu tiên là yêu thú nào": "Liệt Phong Thú",
-  "trong phim vạn cổ tối cường tông, quân thường tiếu chiêu mộ ai làm đệ tử đầu tiên": "Lục Thiên Thiên",
-  "liễu thất nguyệt trong thương nguyên đồ sử dụng vũ khí gì": "Cung",
-  "nhân vật chính trong phim sư huynh a sư huynh là ai": "Lý Trường Thọ",
-  "ai sau đây làm lễ cưới với lý mộ uyển trong tiên nghịch thì bị anh lâm giết": "Tôn Chấn Vỹ (Thực ra là Tôn Trấn Vĩ nhưng đáp án vậy đó :v)",
-  "ôn thiên nhân trong phàm nhân tu tiên tu luyện công pháp gì": "Lục Cực Chân Ma Công",
-  "phong hi trong phàm nhân tu tiên là yêu thú cấp mấy": "9",
-  "trong đấu phá thương khung, tiêu viêm hơn cổ hà ở điểm gì": "Dị Hỏa",
-  "phong hi trong phàm nhân tu tiên vì sao được gọi là đại thiện nhân": "Cả 1 và 2",
-  "trong đấu phá thương khung, khi vân lam tông giải tán thì vân vận đã gia nhập tông phái nào": "Hoa Tông",
-  "gia gia thạch hạo trong phim thế giới hoàn mỹ tên gì": "Thạch Trung Thiên"
-}
-  };
+document.getElementById("searchButton").addEventListener("click", () => {
+  const query = document.getElementById("searchBox").value.trim().toLowerCase();
+  const resultBox = document.getElementById("answerBox");
 
-  searchBox.addEventListener("input", function () {
-    const query = searchBox.value.trim().toLowerCase();
+  if (!query) {
+    resultBox.classList.remove("hidden");
+    resultBox.innerHTML = "❗ Bạn chưa nhập từ khóa.";
+    return;
+  }
 
-    const matched = Object.keys(qaMap).find(q =>
-      q.includes(query) || query.includes(q)
-    );
+  const match = qaList.find(item =>
+    item.question.toLowerCase().includes(query)
+  );
 
-    if (matched) {
-      answerBox.innerHTML = `<strong>✅ Trả lời:</strong> ${qaMap[matched]}`;
-      answerBox.classList.remove("hidden");
-    } else {
-      answerBox.innerHTML = "❌ Không tìm thấy câu trả lời.";
-      answerBox.classList.remove("hidden");
-    }
-  });
+  if (match) {
+    resultBox.classList.remove("hidden");
+    resultBox.innerHTML = `<p><strong>Câu hỏi:</strong> ${match.question}</p><p><strong>Đáp án:</strong> ${match.answer}</p>`;
+  } else {
+    resultBox.classList.remove("hidden");
+    resultBox.innerHTML = `❌ Không tìm thấy kết quả cho: "<strong>${query}</strong>"`;
+  }
 });
